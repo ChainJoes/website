@@ -8,7 +8,7 @@ import {
   FiveImg,
 } from "../../imgs/webp/screen2";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFlip, Pagination, Navigation } from "swiper";
+import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 import {
   FirstImg as PersFirstImg,
   SecondImg as PersSecondImg,
@@ -38,7 +38,7 @@ import MilcyBlock from "../../imgs/new/heroes/milcyBlock.png";
 import AnwarBlock from "../../imgs/new/heroes/anwarBlock.png";
 import ShaanBlock from "../../imgs/new/heroes/shaanBlock.png";
 
-import OurAmazing from "../../imgs/new/backIcons/ourAmazing.svg";
+import OurAmazing from "../../imgs/new/backIcons/ourAmazing.png";
 import Circle from "../../imgs/new/backIcons/circles1.svg";
 import Cross from "../../imgs/new/Cross.png";
 

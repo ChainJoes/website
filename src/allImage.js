@@ -1,7 +1,5 @@
 import {
-  monkeyWebM,
   monkeyMp4,
-  PreLogoWebM,
   PreLogoMp4,
   SamMp4,
   DeoMp4,
@@ -71,7 +69,7 @@ import MilcyBlock from "./imgs/new/heroes/milcyBlock.png";
 import AnwarBlock from "./imgs/new/heroes/anwarBlock.png";
 import ShaanBlock from "./imgs/new/heroes/shaanBlock.png";
 
-import OurAmazing from "./imgs/new/backIcons/ourAmazing.svg";
+import OurAmazing from "./imgs/new/backIcons/ourAmazing.png";
 import Circle from "./imgs/new/backIcons/circles1.svg";
 import { FirstImg, SecondImg, ThirdImg } from "./imgs/webp/screen4";
 import { GoodPoint, BadPoint } from "./imgs/webp/screen6";
@@ -79,8 +77,8 @@ import { GoodPoint, BadPoint } from "./imgs/webp/screen6";
 import { Partner1, Partner2, Partner4 } from "./imgs/webp/screen8";
 import LinkedIn from "./imgs/new/linkedin.svg";
 
-import BestTeam from "./imgs/new/backIcons/bestTeam.svg";
-import KeyPartnership from "./imgs/new/backIcons/keyPartnership.svg";
+import BestTeam from "./imgs/new/backIcons/bestTeam.png";
+import KeyPartnership from "./imgs/new/backIcons/keyPartnership.png";
 import Circle3 from "./imgs/new/backIcons/circles3.svg";
 import Elipces from "./imgs/new/elipces.svg";
 

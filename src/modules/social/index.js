@@ -99,11 +99,11 @@ const Social = () => {
               textAlign="center"
               style={{ fontSize: "inherit", lineHeight: "inherit" }}
             >
-              To recieve our latest news, events and announcements first
+              To receive our latest news, events and announcements first
             </Typography>
           </Box>
           <Link
-            href="https://discord.gg/AABG2mJZAp"
+            href="https://t.me/chainjoes"
             target="_blank"
             underline="none"
             style={{ zIndex: 2 }}

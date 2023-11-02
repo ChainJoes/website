@@ -33,7 +33,7 @@ const web3ModalStore = {
       console.log(2);
       const provider = await state.web3Modal.connect();
 
-      const library = new ethers.providers.Web3Provider(provider);
+      const library = new ethers.BrowserProvider();
 
       library.pollingInterval = 12000;
       commit("setLibrary", library);

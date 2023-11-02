@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Autoplay, FreeMode } from "swiper";
+import { Autoplay, FreeMode } from "swiper/modules";
 import BannerLogo from "../../imgs/new/banner-logo.svg";
 import Noise from "../../imgs/new/noise.png";
 

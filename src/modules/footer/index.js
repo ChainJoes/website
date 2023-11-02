@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { Box, Link, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import ArrowAngle from "../../imgs/new/arrow-angle.svg";
-// import Twitter from "../../imgs/new/twitter.svg";
-// import Telegram from "../../imgs/new/telegram.svg";
-// import TikTok from "../../imgs/new/tiktok.svg";
-// import Discord from "../../imgs/new/discord.svg";
-// import Medium from "../../imgs/new/medium.svg";
-// import LinkedIn from "../../imgs/new/linkedin-logo.svg";
 import Noise from "../../imgs/new/noise.png";
-import DamnnLogo from "../../imgs/new/damn-logo-footer.svg";
+
 
 import {
   Twitter,
@@ -80,7 +74,7 @@ const Footer = () => {
                   <img src={ArrowAngle} alt="arrow-angle" />
                 </Box>
               </RouterLink>
-              <Link
+              {/*<Link
                 href="https://chainjoes.gitbook.io/chainjoes/"
                 target="_blank"
                 underline="none"
@@ -111,7 +105,7 @@ const Footer = () => {
                   </Typography>
                   <img src={ArrowAngle} alt="arrow-angle" />
                 </Box>
-              </Link>
+              </Link>*/}
               <RouterLink to="/faq" target="_blank">
                 <Box
                   sx={{
@@ -692,41 +686,6 @@ const Footer = () => {
             flexDirection: { xs: "column", md: "row" },
           }}
         >
-          <Link href="https://damnn.tv/" target="_blank" underline="none">
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: { xs: "13px", md: 0 },
-              }}
-            >
-              <img src={DamnnLogo} alt="damnn-logo" height="24px" />
-              <Box
-                sx={{
-                  border: "#FFF 1px solid",
-                  borderRadius: "14px",
-                  height: "28px",
-                  width: "105px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginLeft: "12px",
-                  ":hover": {
-                    border: "#003527 1px solid",
-                  },
-                }}
-              >
-                <Typography
-                  fontSize="12px"
-                  lineHeight="12px"
-                  fontFamily="Inter"
-                  color="#FFF"
-                >
-                  Production by
-                </Typography>
-              </Box>
-            </Box>
-          </Link>
           <Box sx={{ display: "flex" }}>
             <Box
               sx={{

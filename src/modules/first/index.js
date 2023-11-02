@@ -7,7 +7,7 @@ import Background from "../../imgs/new/MainScreen.png";
 import Login from "../../imgs/new/login.svg";
 import ArrowDown from "../../imgs/new/arrow-down.svg";
 import { HashLink } from "react-router-hash-link";
-import { Document, CloseBtn } from "../../imgs/new/svg";
+import { CloseBtn } from "../../imgs/new/svg";
 
 const First = () => {
   const refVideo = useRef(null);
@@ -83,21 +83,21 @@ const First = () => {
         },
       ],
     },
-    {
-      title: "Roadmap",
-      link: "/main/#roadmap",
-      type: "scroll",
-    },
-    {
-      title: "Team",
-      link: "/main/#team",
-      type: "scroll",
-    },
-    {
-      title: "Partners",
-      link: "/main/#partners",
-      type: "scroll",
-    },
+    // {
+    //   title: "Roadmap",
+    //   link: "/main/#roadmap",
+    //   type: "scroll",
+    // },
+    // {
+    //   title: "Team",
+    //   link: "/main/#team",
+    //   type: "scroll",
+    // },
+    // {
+    //   title: "Partners",
+    //   link: "/main/#partners",
+    //   type: "scroll",
+    // },
     {
       title: "Help",
       links: [
@@ -127,10 +127,10 @@ const First = () => {
         },
       ],
     },
-    {
-      title: "News",
-      link: "https://medium.com/@ChainJoes",
-    },
+    // {
+    //   title: "News",
+    //   link: "https://medium.com/@ChainJoes",
+    // },
   ];
 
   return (
@@ -397,9 +397,8 @@ const First = () => {
               style={{ fontSize: "inherit", lineHeight: "inherit" }}
               fontFamily="inter"
             >
-              Forget about P2E. Chain Joes is an action-packed
-              <br />
-              mobile game with new PLAY-AND-EARN model.
+                Join the Chain Joes: Rise to the top as you fight for <br/> glory and protect metaverses from organized chaos.
+
             </Typography>
           </Box>
           <Box
@@ -431,7 +430,7 @@ const First = () => {
           }}
         >
           <Link
-            href="https://discord.gg/AABG2mJZAp"
+            href="https://t.me/chainjoes"
             target="_blank"
             underline="none"
           >
@@ -478,63 +477,7 @@ const First = () => {
               </Typography>
             </Box>
           </Link>
-          <Link href="/pdfs/Whitepaper.pdf" target="_blank" underline="none">
-            <Box
-              sx={{
-                width: "280px",
-                height: { xs: "52px", md: "68px" },
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: "2px",
-                border: "1px solid",
-                borderImageSlice: 1,
-                borderImageSource:
-                  "linear-gradient(204.42deg, #00FFB7 -11.28%, #005B42 105.96%)",
-                marginRight: { xs: 0, md: "16px" },
-                cursor: "pointer",
-                marginTop: { xs: "12px", md: 0 },
-                fontWeight: { xs: 500 },
-                color: "#05D19B",
-                fontSize: { xs: "14px", md: "20px" },
-                ":hover": {
-                  color: "#FFF",
-                },
-                ":focus": {
-                  border: "1px solid #FFF",
-                  color: "#FFF",
-                },
-                ":active": {
-                  background: "#FFF",
-                  color: "#080808",
-                },
-              }}
-              onMouseEnter={(e) => {
-                e.preventDefault();
-                setDocumentColor("#FFF");
-              }}
-              onMouseLeave={(e) => {
-                e.preventDefault();
-                setDocumentColor("");
-              }}
-            >
-              <Box>
-                <Document color={documentColor} />
-              </Box>
-              <Typography
-                marginLeft="8px"
-                fontWeight="600"
-                fontFamily="Inter"
-                style={{
-                  fontWeight: "inherit",
-                  fontSize: "inherit",
-                  color: "inherit",
-                }}
-              >
-                Read Whitepaper
-              </Typography>
-            </Box>
-          </Link>
+
         </Box>
       </Box>
     </Box>

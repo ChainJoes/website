@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, Link } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -34,8 +34,8 @@ import { Partner1, Partner2, Partner4 } from "../../imgs/webp/screen8";
 import LinkedIn from "../../imgs/new/linkedin.svg";
 import Noise from "../../imgs/new/noise.png";
 
-import BestTeam from "../../imgs/new/backIcons/bestTeam.svg";
-import KeyPartnership from "../../imgs/new/backIcons/keyPartnership.svg";
+import BestTeam from "../../imgs/new/backIcons/bestTeam.png";
+import KeyPartnership from "../../imgs/new/backIcons/keyPartnership.png";
 import Cross from "../../imgs/new/Cross.png";
 import Circle from "../../imgs/new/backIcons/circles3.svg";
 import Elipces from "../../imgs/new/elipces.svg";
@@ -720,7 +720,7 @@ const Activities = () => {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ marginBottom: { md: "40px", lg: 0 } }} id={"roadmap"}>
+          <Box sx={{ marginBottom: { md: "40px", lg: 0 }, display: { xs: "none", md: "none", lg: "none" }, }} id={"roadmap"}>
             <Box
               sx={{
                 display: "flex",
@@ -1115,6 +1115,7 @@ const Activities = () => {
             sx={{
               marginTop: { xs: "140px", md: "220px", lg: "160px", xl: "200px" },
               position: "relative",
+              display: { xs: "none", md: "none", lg: "none" }
             }}
             id={"team"}
           >
@@ -1740,6 +1741,7 @@ const Activities = () => {
             sx={{
               marginTop: { xs: "165px", md: "220px", lg: "160px", xl: "200px" },
               position: "relative",
+              display: { xs: "none", md: "none", lg: "none" }
             }}
             id={"partners"}
           >

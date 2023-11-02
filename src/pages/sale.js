@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Box } from "@mui/system";
-import { Loader } from "../modules";
 import { getAllImage, getAllVideo } from "../allImage";
-import PreLogoWebM from "../videos/prelogo.webm";
-import PreLogoMp4 from "../videos/prelogo.mp4";
 import Cookies from "js-cookie";
 import Sale from "../modules/sale/sale";
 import { useMediaQuery } from "@mui/material";

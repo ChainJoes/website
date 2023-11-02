@@ -7,7 +7,6 @@ import Timer from "../../imgs/new/timer.svg";
 import Video from "../../imgs/new/video.svg";
 import Close from "../../imgs/new/close.svg";
 import Noise from "../../imgs/new/noise.png";
-import BlockCursor from "../../imgs/new/disabled.cur";
 
 import "swiper/css";
 
