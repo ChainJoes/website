@@ -62,7 +62,7 @@ export const Cta = () => {
                   </button>
                 </label>
 
-                <ErrorMessage name="email" component="div" className="error" />
+                <ErrorMessage name="email" component="div" className="error-text" />
               </Form>
             )}
           </Formik>
