@@ -1,0 +1,269 @@
+@import "/src/mixins";
+
+.cta {
+  h2.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      color: #1D1B1B;
+      text-align: center;
+      font-family: Druk Text Wide Trial, serif;
+      font-size: 5vw;
+      font-style: italic;
+      font-weight: 500;
+      line-height: 5vw;
+      text-transform: uppercase;
+
+      &:nth-child(2) {
+        font-size: 6.25vw;
+        font-weight: 800;
+        line-height: 6.25vw;
+        font-style: normal;
+      }
+    }
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 3.33vw;
+    padding: 3.33vw 0;
+
+    a {
+      transition: all .3s ease;
+      opacity: .9;
+    }
+
+    a:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    svg {
+      width: 3.33vw;
+      height: auto;
+
+      path {
+        fill: #1D1B1B;
+      }
+    }
+  }
+
+  .newsletter {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h2.title {
+      width: 52vw;
+      font-family: Druk Text Wide Trial, serif;
+      font-size: 2.2vw;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 115%;
+      display: initial;
+      margin-bottom: 0;
+    }
+  }
+
+  form {
+    position: relative;
+    width: 34.90vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.21vw;
+
+    .text {
+      color: #1D1B1B;
+      font-size: 0.94vw;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+    }
+
+    label {
+      position: relative;
+
+      span {
+        position: absolute;
+        z-index: 2;
+        color: #1D1B1B;
+        font-size: 0.52vw;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.025vw;
+        text-transform: uppercase;
+        left: 0.83vw;
+        top: 0.42vw;
+      }
+
+      input {
+        width: 100%;
+        border-radius: 0.63vw;
+        border: 0.05vw solid rgba(29, 27, 27, 0.60);
+        background: rgba(29, 27, 27, 0.10);
+        backdrop-filter: blur(0.21vw);
+        padding: 1.35vw 0.83vw 0.42vw;
+        color: #1D1B1B;
+        font-size: 0.83vw;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        outline: none;
+        transition: all .3s ease;
+      }
+
+      &.error {
+        input {
+          border: 0.05vw solid rgba(170, 3, 3, 0.8);
+          color:rgba(170, 3, 3, 0.8)
+        }
+      }
+    }
+
+    .error-text {
+      position: absolute;
+      bottom: -15%;
+      transform: translateY(50%);
+      font-size: 0.83vw;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 140%;
+      color:rgba(170, 3, 3, 0.8)
+    }
+
+    button {
+      position: absolute;
+      background: none;
+      border: none;
+      outline: none;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 0.78vw;
+        height: 0.42vw;
+      }
+    }
+  }
+
+  @include _1024 {
+    h2.title {
+      span {
+        font-size: 8.33vw;
+        line-height: 9.38vw;
+
+        &:nth-child(2) {
+          font-size: 9.90vw;
+          line-height: 11.46vw;
+        }
+      }
+    }
+
+    .socials {
+      gap: 64px;
+
+      svg {
+        width: 6.25vw;
+      }
+    }
+
+    .newsletter {
+      flex-direction: column;
+      gap: 16px;
+
+      h2.title {
+        width: 100%;
+        font-size: 4.17vw;
+
+        br {
+          &:nth-child(2) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    form {
+      width: 100%;
+      gap: 1.3vw;
+
+      .text {
+        font-size: 2.34vw;
+      }
+
+      label {
+
+        span {
+          font-size: 1.30vw;
+          left: 2vw;
+        }
+
+        input {
+          padding: 3vw 2.08vw 1vw;
+          font-size: 2vw;
+        }
+      }
+
+      button {
+        svg {
+          width: 5vw;
+          height: 1.4vw;
+        }
+      }
+    }
+  }
+
+  @include _768 {
+
+    .socials {
+      gap: 30px;
+
+      svg {
+        width: 48px;
+      }
+    }
+
+    .newsletter {
+      h2.title {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    form {
+      .text {
+        font-size: 18px;
+      }
+
+      label {
+        span {
+          font-size: 10px;
+          left: 16px;
+        }
+
+        input {
+          font-size: 16px;
+          border-radius: 12px;
+          padding: 16px 16px 8px;
+        }
+      }
+
+      button {
+        svg {
+          width: 20px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}

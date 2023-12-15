@@ -1,0 +1,239 @@
+@import "/src/mixins";
+
+.ecosystem {
+  padding-bottom: 7.81vw;
+  position: relative;
+  z-index: 11;
+
+  .wrap {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 2.19vw;
+      height: 95%;
+      background: url('./Assets/ruler.svg');
+      background-size: contain;
+      opacity: 0.15;
+    }
+  }
+
+  h2.title {
+    transform: translateX(-5%) rotate(-2deg);
+    padding: 1.25vw 3.33vw;
+    font-family: Druk Text Wide Trial, serif;
+    color: #1D1B1B;
+    font-size: 3.33vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    text-transform: uppercase;
+    background: #4CEABE;
+    position: relative;
+    overflow: hidden;
+    width: max-content;
+    margin: 0;
+
+    &:before {
+      content: '';
+      width: 120%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -10%;
+      background: url('./Assets/plastic-textures.png');
+      background-size: 100% 100%;
+      mix-blend-mode: soft-light;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+    width: 36.20vw;
+    padding-left: 3.13vw;
+    margin: 5.21vw 0 2vw;
+  }
+
+  &__item {
+    border-radius: 8px;
+    border: 1px solid #4CEABE;
+    padding: 1.25vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25vw;
+    position: relative;
+
+    h3.title {
+      color: white;
+      font-family: Druk Text Wide Trial, serif;
+      font-size: 0.94vw;
+      font-style: italic;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.42vw;
+
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        color: rgba(255, 255, 255, 0.60);
+        font-size: 0.94vw;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 8.33vw;
+      top: 15%;
+      right: -3%;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  .info {
+    padding-left: 3.13vw;
+    width: 46.98vw;
+    color: white;
+    font-family: Druk Text Wide Trial, serif;
+    font-size: 1.72vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  .coins {
+    position: absolute;
+    right: 0;
+    top: 35%;
+
+    img {
+      position: absolute;
+      object-fit: contain;
+
+      &:nth-child(1) {
+        right: 12vw;
+        top: 2vw;
+        width: 42vw;
+        height: 42vw;
+      }
+
+      &:nth-child(2) {
+        right: 5vw;
+        top: 22vw;
+        width: 44vw;
+        height: 44vw;
+      }
+
+      &:nth-child(3) {
+        right: 0;
+        top: 0;
+        width: 37vw;
+        height: 50vw;
+      }
+
+      &:nth-child(4) {
+        right: 0;
+        top: 17vw;
+        width: 34vw;
+        height: 42vw;
+      }
+    }
+  }
+
+  @include _1024 {
+    h2.title {
+      padding: 2.25vw 4.33vw;
+      transform: translate(-5%, -15%) rotate(-2deg) !important;
+    }
+    &__items {
+      width: 90%;
+    }
+
+    &__item {
+      padding: 24px;
+      gap: 24px;
+
+      img {
+        width: 22vw;
+        top: 18%;
+        right: 0;
+      }
+
+      h3.title {
+        font-size: 18px;
+      }
+
+      ul {
+        gap: 12px;
+
+        li {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .info {
+      width: 90%;
+      font-size: 20px;
+    }
+
+    .wrap {
+      padding: 0 85px;
+
+      &:before {
+        width: 4vw;
+        height: 100%;
+        transform: translateX(-20px);
+      }
+    }
+  }
+
+  @include _768 {
+    .wrap {
+      padding: 0 12px;
+      overflow: visible;
+    }
+
+    h2.title {
+      font-size: 5.33vw;
+    }
+
+    &__items {
+      width: 100%;
+      gap: 16px;
+      padding: 0;
+    }
+
+    &__item {
+      img {
+        display: none;
+      }
+
+      h3.title {
+        font-size: 16px;
+      }
+    }
+
+    .info {
+      padding: 24px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

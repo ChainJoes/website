@@ -1,0 +1,67 @@
+@import "/src/mixins";
+
+.sales-hero {
+  padding: 10vw 0 12vw;
+  background: url("./Assets/sales-hero.jpg");
+  background-size: cover;
+
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h2.title {
+    color: white;
+    font-family: Druk Text Wide Trial, serif;
+    font-size: 1.67vw;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 2.08vw;
+    text-transform: uppercase;
+
+    &:nth-child(3) {
+      font-size: 1.4vw;
+    }
+  }
+
+  h1.title {
+    color: white;
+    text-align: left;
+    font-family: Druk Text Wide Trial, serif;
+    font-size: 4.17vw;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 4.3vw;
+    text-transform: uppercase;
+  }
+
+  .content {
+    width: 51.5vw;
+  }
+
+  @include _768 {
+    padding: 160px 0;
+
+    h2.title {
+      font-size: 18px !important;
+      line-height: 24px !important;
+      margin: 0;
+    }
+
+    h1.title {
+      font-size: 32px;
+      line-height: 40px;
+      margin: 18px 0;
+    }
+
+    .wrap {
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .content {
+      width: 100%;
+    }
+  }
+}

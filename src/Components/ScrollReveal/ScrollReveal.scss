@@ -1,0 +1,26 @@
+@import "/src/mixins";
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50%);
+  transition: all .45s ease;
+
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.horizontally {
+    transform: translateX(-50%);
+
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @include _1024 {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+  }
+}
