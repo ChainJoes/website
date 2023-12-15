@@ -1,0 +1,13 @@
+[Unit]
+Description=Mail API
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/mail_api
+ExecStart=/var/www/mail_api/venv/bin/python main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
