@@ -21,27 +21,27 @@ export const Footer = () => {
                 Menu
               </li>
               <li>
-                <a href="src/Components/Footer/Footer#home">
+                <a href="#home">
                   Home
                 </a>
               </li>
               <li>
-                <a href="src/Components/Footer/Footer#brand">
+                <a href="#brand">
                   Discover ChainVerse
                 </a>
               </li>
               <li>
-                <a href="src/Components/Footer/Footer#characters">
+                <a href="#characters">
                   Choose your Joe
                 </a>
               </li>
               <li>
-                <a href="src/Components/Footer/Footer#ecosystem">
+                <a href="#ecosystem">
                   Ecosystem
                 </a>
               </li>
               <li>
-                <a href="src/Components/Footer/Footer#subscribe">
+                <a href="#subscribe">
                   Subscribe
                 </a>
               </li>
