@@ -1,0 +1,276 @@
+@import "/src/mixins";
+
+.hero {
+  position: relative;
+  padding-top: 7vw;
+  padding-bottom: 33vw;
+  overflow: hidden;
+  background: rgba(#276367, .15);
+
+  &__top {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3.5vw;
+    padding-bottom: 3.5vh;
+
+    img {
+      width: 20vw;
+    }
+
+    span {
+      color: white;
+
+      &:nth-child(1) {
+        font-family: 'Druk Text Wide Trial', serif;
+        font-size: 3.17vw;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      &:nth-child(3) {
+        width: 21vw;
+        font-size: 1vw;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.4vw;
+      }
+    }
+  }
+
+  h1.title {
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    color: white;
+    text-align: center;
+    font-family: 'Druk Text Wide Trial', serif;
+    font-size: 8.5vw;
+    font-weight: 800;
+    line-height: 100%;
+    text-transform: uppercase;
+    transition-delay: .2s;
+  }
+
+  .spider-web {
+    position: absolute;
+    top: -75%;
+    left: 50%;
+    width: 150vw;
+    height: 150vw;
+    animation: rotate 120s linear infinite;
+  }
+
+  .noise, .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .noise {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      width: 150%;
+      height: 100vw;
+      border-radius: 2392px;
+      opacity: .6;
+      background: radial-gradient(64.72% 64.72% at 50% 56.32%, #44F4C3 38.77%, rgba(68, 244, 195, 0.00) 84.35%);
+    }
+
+    img {
+      opacity: .5;
+    }
+  }
+
+  .heroes {
+    position: absolute;
+    bottom: -10%;
+    width: 100%;
+    z-index: 2;
+
+    img {
+      position: absolute;
+      transition-delay: .45s;
+
+      &:nth-child(1) {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 41.98vw;
+      }
+
+      &:nth-child(2) {
+        left: 5%;
+        bottom: 0;
+        z-index: 2;
+        width: 31.25vw;
+      }
+
+      &:nth-child(3) {
+        left: 0;
+        bottom: 0;
+        width: 61.72vw;
+      }
+
+      &:nth-child(4) {
+        left: 40%;
+        bottom: 26vw;
+        z-index: 2;
+        width: 11.98vw;
+      }
+
+      &:nth-child(5) {
+        left: 38%;
+        bottom: 0;
+        z-index: 2;
+        width: 34.11vw;
+      }
+
+      &:nth-child(6) {
+        left: 43.5%;
+        bottom: 0;
+        width: 50.08vw;
+        z-index: 1;
+      }
+
+      &:nth-child(7) {
+        right: 0;
+        bottom: 0;
+        width: 30vw;
+      }
+    }
+  }
+
+  .anim {
+    transform: translateY(50%);
+    transition: all .45s ease;
+    opacity: 0;
+  }
+
+  &.active {
+    .anim {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+
+  @include _1024 {
+    padding: 135px 0;
+    height: 100vh;
+
+    h1.title {
+      font-size: 10.8vw;
+      white-space: nowrap;
+    }
+
+    &__top {
+      position: relative;
+      padding-bottom: 0;
+
+      img {
+        width: 49vw;
+      }
+
+      span {
+        &:nth-child(1) {
+          font-size: 6vw;
+        }
+
+        &:nth-child(3) {
+          width: 50vw;
+          position: absolute;
+          bottom: -130%;
+          left: 25%;
+          font-size: 2.34vw;
+          text-align: center;
+          line-height: normal;
+        }
+      }
+    }
+
+    .spider-web {
+      top: 0;
+      left: 50%;
+      width: 150vw;
+      height: 150vw;
+    }
+
+    .noise {
+      img {
+        opacity: .6;
+      }
+
+      &:before {
+        top: 40%;
+        width: 200vw;
+        height: 200vw;
+        opacity: 40%;
+      }
+    }
+
+    .heroes {
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  @include _768 {
+    h1.title {
+      font-size: 10vw;
+    }
+
+    .bg {
+      height: 100%;
+      width: auto;
+    }
+
+    &__top {
+      img {
+        display: none;
+      }
+
+      span {
+        &:nth-child(3) {
+          width: 100%;
+          left: 0;
+          bottom: -300%;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes rotate {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}

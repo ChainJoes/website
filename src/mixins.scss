@@ -1,0 +1,19 @@
+@mixin _1024 {
+  @media (max-width: 1024px){
+    @content;
+  }
+}
+
+@mixin _768 {
+  @media (max-width: 768px){
+    @content;
+  }
+}
+
+@mixin font ($fw, $fz, $lh) {
+  font-weight: $fw;
+  font-size: $fz;
+  line-height: $lh;
+}
+
+$white: #fff;

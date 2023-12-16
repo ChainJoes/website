@@ -1,30 +1,61 @@
-# ChainJoes Web App
+## Chain Joes
 
-ChainJoes is a mobile web3 shooter, where gamers are kicking the web3 enemies asses. With it's PLAY-AND-EARN model, users can earn CJ-tokens and buying more weapons or features in the game. Join the Battle!
+This project is generated using Yarn as the package manager.
 
-## To start
+## Table of Contents
 
-First update the packages:
+- [Installation](#installation)
+- [Usage](#usage)
+- [Scripts](#scripts)
+- [Linting](#linting)
+- [Browsers Support](#browsers-support)
+- [Resolutions](#resolutions)
 
-### `yarn install`
+### Installation
 
-In the project directory, you can run:
+To get started, clone the repository and run the following command:
 
-### `npm start`
+`yarn install`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This project uses React and various dependencies. Make sure to have Node.js and Yarn installed.
 
-### `npm run build`
+`yarn start`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Scripts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `yarn start`: Run the development server.
+- `yarn build`: Build the project for production.
+- `yarn test`: Run tests.
+- `yarn eject`: Eject from Create React App.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Linting
 
+Linting is configured using ESLint with the react-app and react-app/jest presets.
+
+### Browsers Support
+
+This project aims to support the following browsers:
+
+#### Production
+
+- >0.2%
+- not dead
+- not op_mini all
+
+#### Development
+
+- last 1 chrome version
+- last 1 firefox version
+- last 1 safari version
+
+### Resolutions
+
+The project enforces the following TypeScript resolution:
+
+{
+  "typescript": "^5.3.3"
+}
+
+Feel free to explore the dependencies listed in the package.json file to learn more about the tools and libraries used in this project.

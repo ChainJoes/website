@@ -1,0 +1,232 @@
+@import "/src/mixins";
+
+.characters {
+  position: relative;
+
+  .bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    object-fit: cover;
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    width: 37vw;
+    padding: 5vw 0;
+
+    h2.title {
+      color: white;
+      font-family: Druk Text Wide Trial, serif;
+      font-size: 3.5vw;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1.88vw;
+      margin-top: 0;
+      transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+      transform: translateX(0%);
+
+      &.anim {
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: all .4s ease;
+      }
+    }
+
+    .text {
+      transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+      transform: translateX(0%);
+      height: 23.5vw;
+
+      p {
+        color: white;
+        font-size: .9vw;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.5vw;
+      }
+
+      &.anim {
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: all .4s ease;
+      }
+    }
+  }
+
+  .tabs {
+    margin-top: 3.39vw;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 1.67vw;
+
+    .tab {
+      cursor: pointer;
+      opacity: .6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.42vw;
+      transition: all .35s ease;
+
+      img {
+        width: 4.17vw;
+        height: 4.17vw;
+      }
+
+      .token-name {
+        color: white;
+        font-size: 1.25vw;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-transform: uppercase;
+        transition: all .35s ease;
+      }
+
+      &:hover {
+        opacity: .9;
+      }
+
+      &.active {
+        opacity: 1;
+
+        .token-name {
+          color: #4CEABE;
+        }
+      }
+    }
+  }
+
+  @include _1024 {
+    .content {
+      width: 43vw;
+
+      .text {
+        height: 38vw;
+
+        p {
+          font-size: 1.5vw;
+        }
+      }
+    }
+  }
+
+  @include _768 {
+    padding: 64px 0 312px;
+    background: #010101;
+    position: relative;
+
+    .content {
+      width: 100%;
+      position: static;
+
+      h2.title {
+        font-size: 48px;
+      }
+
+      .text {
+        height: auto;
+
+        p {
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .bg {
+      display: none;
+    }
+
+    .tabs {
+      position: absolute;
+      bottom: 48px;
+      flex-wrap: wrap;
+
+      .tab {
+        width: 30%;
+
+        img {
+          width: 80%;
+          height: 80%;
+        }
+
+        .token-name {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .char-mobile {
+      width: 100%;
+      transition: all .3s ease;
+
+      &.anim {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.character {
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .3s ease;
+  }
+
+  video {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .3s ease;
+  }
+
+  .char {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    width: 50vw;
+    transition: all .3s ease;
+  }
+
+  div {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100% !important;
+    height: 100% !important;
+    transition: all .3s ease;
+  }
+
+  &.anim {
+    .character__bg, .char {
+      opacity: 0;
+    }
+
+    div {
+      opacity: 0;
+    }
+  }
+
+  @include _768 {
+    div {
+      display: none;
+    }
+  }
+}

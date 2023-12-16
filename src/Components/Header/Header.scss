@@ -1,0 +1,169 @@
+@import "/src/mixins";
+
+.header {
+  padding: 1.04vw 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 100vw;
+
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 70%;
+    }
+  }
+
+  .logo {
+    width: 7vw;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.67vw;
+
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      a {
+        color: white;
+        font-family: Manrope, serif;
+        font-size: 1.04vw;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all .3s ease;
+
+        &:hover {
+          color: #44F4C3;
+        }
+      }
+    }
+  }
+
+  .socials {
+    display: flex;
+    gap: 1.67vw;
+
+    svg {
+      width: 1.55vw;
+
+      path {
+        transition: all .3s ease;
+      }
+
+      &:hover {
+        path {
+          fill: #44F4C3;
+        }
+      }
+    }
+  }
+
+  @include _1024 {
+    padding: 32px 0;
+
+    .logo {
+      width: 135px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .wrap {
+      .menu {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: #010101;
+        flex-direction: column;
+        padding: 120px 0 32px;
+        transform: translateX(100%);
+        transition: all .45s ease;
+
+        &.active {
+          transform: translateX(0);
+        }
+
+        ul {
+          flex-direction: column;
+          gap: 28px;
+
+          li {
+            a {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .socials {
+          svg {
+            width: 48px;
+          }
+        }
+      }
+    }
+
+    .burger {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      span {
+        color: white;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+        transition: all .25s ease;
+      }
+
+      .icons {
+        position: relative;
+        width: 24px;
+        height: 24px;
+
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: all .45s ease;
+
+          &:nth-child(2) {
+            opacity: 0;
+          }
+        }
+      }
+
+      &.active {
+        span {
+          opacity: 0;
+        }
+
+        .icons {
+          svg {
+            transform: translate(-50%, -50%) rotate(360deg);
+            opacity: 0;
+
+            &:nth-child(2) {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
