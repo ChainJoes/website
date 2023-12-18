@@ -7,6 +7,9 @@ interface ConnectModalProps {
 }
 
 const ConnectModal: React.FC<ConnectModalProps> = ({ connect, connectors, setShowModal }) => {
+
+    console.log(connectors);
+
     return (
         <div className="connect-modal" onClick={() => setShowModal(false)}>
             <div className="wrap" onClick={(e) => e.stopPropagation()}>
@@ -20,7 +23,7 @@ const ConnectModal: React.FC<ConnectModalProps> = ({ connect, connectors, setSho
                             className="connector btn"
                             key={`connector-${index}`}
                             onClick={() => {
-                                connect(connector);
+                                connect({ connector });
                             }}
                         >
                             {connector.name}

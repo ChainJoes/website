@@ -5,13 +5,14 @@ import {Home} from "./Pages/Home/Home";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {Footer} from "./Components/Footer/Footer";
 import {Sales} from "./Pages/Sales/Sales";
-import {WagmiConfig, createConfig, configureChains, mainnet} from 'wagmi'
+import {WagmiConfig, createConfig, configureChains} from 'wagmi'
 import {createPublicClient, http} from "viem";
+import { goerli } from 'viem/chains';
 
 const config = createConfig({
   autoConnect: true,
   publicClient: createPublicClient({
-    chain: mainnet,
+    chain: goerli,
     transport: http()
   }),
 })

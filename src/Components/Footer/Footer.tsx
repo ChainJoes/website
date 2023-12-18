@@ -3,7 +3,7 @@ import './Footer.scss'
 import {Cta} from "./Cta/Cta";
 import {Logo} from "../Logo/Logo";
 import {Socials} from "../Socials/Socials";
-import {m5Logo, payAcceptLogo} from "../Icons/Icons";
+import {m5Logo} from "../Icons/Icons";
 
 export const Footer = () => {
   return(

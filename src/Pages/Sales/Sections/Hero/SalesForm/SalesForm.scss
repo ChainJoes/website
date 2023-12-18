@@ -5,6 +5,7 @@
   position: relative;
 
   form {
+    position: relative;
     width: 31vw;
     padding: 2.08vw;
     border-radius: 24px;
@@ -86,6 +87,44 @@
         font-size: 1.67vw;
         font-weight: 600;
         outline: none !important;
+      }
+    }
+
+    .status-popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.2);
+      border-radius: 24px;
+      background: rgba(15, 15, 15, 0.80);
+      box-shadow: 0 16px 16px 0 rgba(15, 15, 15, 0.24);
+      backdrop-filter: blur(2px);
+      padding: 2vw 1.5vw;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all .25s ease;
+
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .title {
+        margin-top: 24px;
+        color: white;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .text {
+        width: 100%;
+        white-space: nowrap;
       }
     }
   }
@@ -218,23 +257,25 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+    background: rgba(15, 15, 15, 0.40);
+
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .wrap {
-      background: linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%), var(--palette-dark, #0F0F0F);
-      width: 40vw;
+      border-radius: 16px;
+      background: rgba(15, 15, 15, 0.80);
+      backdrop-filter: blur(12px);
+      width: 35vw;
+      min-width: 300px;
       padding: 2.08vw;
-      border-radius: 24px;
       flex-direction: column;
     }
 
     h3.title {
-      margin: 0 0 1.67vw;
+      margin: 0 0 8px;
       color: white;
       font-family: Druk Text Wide Trial, serif;
       font-size: 2.08vw;
@@ -242,6 +283,11 @@
       font-weight: 500;
       line-height: 140%;
       letter-spacing: 1.6px;
+    }
+
+    h5.text {
+      width: 65%;
+      text-align: center;
     }
 
     .connectors {

@@ -40,7 +40,7 @@ export const CharactersData = [
     charVideo: charVideo1,
     charMobileImg: charMobileImg1,
     icon: charIcon1,
-    tokenName: '$CJWAR',
+    tokenName: '$CJTYR',
   },
   {
     title: 'Anwar',

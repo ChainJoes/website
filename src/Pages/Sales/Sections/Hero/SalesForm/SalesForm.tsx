@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form } from "formik";
 import ethIcon from './Assets/ethereum.png'
 import { TokensTabs } from "./TokensTabs";
@@ -6,12 +6,41 @@ import { TokensData } from "./TokensData";
 import { useAccount, useConnect, useDisconnect, useBalance, useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi';
 import './SalesForm.scss'
 import ConnectModal from './ConnectModal';
+import { contractAbi } from './Api/api';
+import { StatusModal } from './StatusPopup';
 
 export const SalesForm = () => {
+  const presale_address = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
   const { connect, connectors } = useConnect();
   const { isConnected, address } = useAccount();
   const [activeToken, setActiveToken] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+
+  const { data: rate, isLoading: isRateLoading } = useContractRead({
+    address: presale_address,
+    abi: contractAbi,
+    functionName: 'getCurrentRate',
+    args: [TokensData[activeToken].token],
+    watch: true
+  });
+
+  const { data: tokenSales } = useContractRead({
+    address: presale_address,
+    abi: contractAbi,
+    functionName: 'tokenSales',
+    args: [TokensData[activeToken].token],
+    watch: true
+  });
+
+  const { data: tokensSold } = useContractRead({
+    address: presale_address,
+    abi: contractAbi,
+    functionName: 'getTotalTokensSold',
+    args: [TokensData[activeToken].token],
+    watch: true
+  });
 
   return (
     <div className="sales-form">
@@ -22,6 +51,7 @@ export const SalesForm = () => {
         }}
       >
         <Form>
+          {showPopup && <StatusModal onClose={() => setShowPopup(false)} />}
           <h3 className="title">
             {TokensData[activeToken].name.split('$CJ')[1]} TOKEN
           </h3>
@@ -42,7 +72,7 @@ export const SalesForm = () => {
                 You send
               </span>
             </div>
-            <input type="text" name='send-token' id='send-token' disabled={!isConnected}  />
+            <input type="text" name='send-token' id='send-token' disabled={!isConnected} />
           </label>
           <label className='field' htmlFor="get-token">
             <div className="field__head">
@@ -65,10 +95,10 @@ export const SalesForm = () => {
               <div className="progress__head">
                 <div className="progress__info">
                   <div className="progress__current">
-                    $15.934.926
+                    ${tokensSold?.toString()}
                   </div>
                   <div className="progress__max">
-                    / $40.000.000
+                    / ${(Array.isArray(tokenSales) && tokenSales[1] !== undefined) && tokenSales[1].toString()}
                   </div>
                 </div>
                 <div className="progress__percent">
@@ -83,7 +113,11 @@ export const SalesForm = () => {
           <div className="desc">
             Connect your wallet to buy {TokensData[activeToken].name}
           </div>
-          <input className='btn' type="submit" value='Connect Wallet' onClick={() => setShowModal(true)} />
+          {!address ?
+            <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
+            :
+            <input className='btn' type="submit" value='Buy Tokens' onClick={() => setShowPopup(true)} />
+          }
           <div className="text">
             90% of the total supply is going to the open market via this Sale!
           </div>
@@ -94,7 +128,7 @@ export const SalesForm = () => {
         setActiveToken={setActiveToken}
       />
       {
-        showModal &&
+        showModal && !address &&
         <ConnectModal
           connect={connect}
           connectors={connectors}
