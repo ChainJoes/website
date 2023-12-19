@@ -89,7 +89,7 @@
         background: #010101;
         flex-direction: column;
         padding: 120px 0 32px;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         transition: all .45s ease;
 
         &.active {
