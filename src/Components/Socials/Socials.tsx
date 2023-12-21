@@ -3,7 +3,7 @@ import {discordIcon, mediumIcon, telegramIcon, xIcon, ytIcon} from "../Icons/Ico
 
 export const Socials = (
   <div className="socials">
-    <a href='https://discord.gg/n3xTVnGb' target='_blank' className="soc">
+    <a href='https://discord.gg/WnejedQ399' target='_blank' className="soc">
       {discordIcon}
     </a>
     <a href='https://medium.com/@chainjoes' target='_blank' className="soc">

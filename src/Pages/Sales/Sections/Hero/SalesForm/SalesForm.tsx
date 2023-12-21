@@ -6,12 +6,14 @@ import { TokensData } from "./TokensData";
 import { useAccount, useConnect, useDisconnect, useBalance, useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi';
 import './SalesForm.scss'
 import ConnectModal from './ConnectModal';
-import { contractAbi } from './Api/api';
+import { presaleContractAbi } from './Abi/presaleAbi';
+import { whitelistContractAbi } from './Abi/whiteListAbi';
 import { StatusModal } from './StatusPopup';
 import { parseEther } from 'viem';
 
 export const SalesForm = () => {
-  const presale_address = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
+  const presaleAddress = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
+  const whiteListAdress = '0xec63a738f90391e7426a8d9395d7991aef4dcbf4';
   const { connect, connectors } = useConnect();
   const { isConnected, address } = useAccount();
   const { data: ethBalance } = useBalance({ address: address });
@@ -20,6 +22,7 @@ export const SalesForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [valueETH, setValueETH] = useState<number | ''>('');
   const [valueToken, setValueToken] = useState<number | ''>('');
+  const [isWhiteListActive, setWhiteListActive] = useState(true);
 
   const handleValueETHChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (rate) {
@@ -43,25 +46,53 @@ export const SalesForm = () => {
     }
   };
 
+  const { write: addToWhiteList } = useContractWrite({
+    address: whiteListAdress,
+    abi: whitelistContractAbi,
+    functionName: 'addToWhitelist',
+    account: address,
+    args: [address]
+  });
+
+
+  const addAddressToWhiteList = useCallback(async () => {
+    try {
+      await addToWhiteList();
+      //TODO: ADD ALERT
+    } catch (e) {
+    }
+  }, [addToWhiteList]);
+
+  const { data: isWhitelisted } = useContractRead({
+    address: whiteListAdress,
+    abi: whitelistContractAbi,
+    functionName: 'isWhitelisted',
+    args: [address],
+    watch: true
+  });
+
+  console.log(isWhitelisted);
+
   const { data: rate } = useContractRead({
-    address: presale_address,
-    abi: contractAbi,
+    address: presaleAddress,
+    abi: presaleContractAbi,
     functionName: 'getCurrentRate',
     args: [TokensData[activeToken].token],
     watch: true
   });
 
+
   const { data: tokenSales } = useContractRead({
-    address: presale_address,
-    abi: contractAbi,
+    address: presaleAddress,
+    abi: presaleContractAbi,
     functionName: 'tokenSales',
     args: [TokensData[activeToken].token],
     watch: true
   });
 
   const { data: tokensSold } = useContractRead({
-    address: presale_address,
-    abi: contractAbi,
+    address: presaleAddress,
+    abi: presaleContractAbi,
     functionName: 'getTotalTokensSold',
     args: [TokensData[activeToken].token],
     watch: true
@@ -82,8 +113,8 @@ export const SalesForm = () => {
   )
 
   const { write: buyTokensWithEther, isLoading: isPresaleLoading, isSuccess: isPresaleSuccess, data: txPurchase } = useContractWrite({
-    address: presale_address,
-    abi: contractAbi,
+    address: presaleAddress,
+    abi: presaleContractAbi,
     functionName: 'buy',
     account: address
   });
@@ -100,31 +131,31 @@ export const SalesForm = () => {
     }
   }, [valueETH, ethBalance, activeToken, buyTokensWithEther]);
 
-  const { data : txData, isSuccess : isTxSuccess, isLoading : isTxLoading, refetch : refreshTxData} = useWaitForTransaction({hash : txPurchase?.hash});
+  const { data: txData, isSuccess: isTxSuccess, isLoading: isTxLoading, refetch: refreshTxData } = useWaitForTransaction({ hash: txPurchase?.hash });
 
   useEffect(() => {
     if (isTxLoading) {
-        // toastId.current = toast.info(
-        //     `Processing ${ethAmount * rate.toString() } PAYT`, {
-        //         position: "top-right",
-        //         autoClose: 30000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //     });
+      // toastId.current = toast.info(
+      //     `Processing ${ethAmount * rate.toString() } PAYT`, {
+      //         position: "top-right",
+      //         autoClose: 30000,
+      //         hideProgressBar: false,
+      //         closeOnClick: true,
+      //         pauseOnHover: true,
+      //         draggable: true,
+      //         progress: undefined,
+      //     });
     }
 
     if (isTxSuccess) {
-        // toast.update(toastId.current, {
-        //     render: `Successfully bought ${ethAmount * rate.toString() } PAYT`,
-        //     type: toast.TYPE.SUCCESS,
-        //     autoClose: 5000
-        // });
-        refreshTxData();
+      // toast.update(toastId.current, {
+      //     render: `Successfully bought ${ethAmount * rate.toString() } PAYT`,
+      //     type: toast.TYPE.SUCCESS,
+      //     autoClose: 5000
+      // });
+      refreshTxData();
     }
-}, [isTxSuccess, isTxLoading]);
+  }, [isTxSuccess, isTxLoading]);
 
   return (
     <div className="sales-form">
@@ -136,95 +167,148 @@ export const SalesForm = () => {
       >
         <Form>
           {showPopup && <StatusModal onClose={() => setShowPopup(false)} />}
-          <h3 className="title">
-            {TokensData[activeToken].name.split('$CJ')[1]} TOKEN
-          </h3>
-          <label className='field' htmlFor="send-token">
-            <div className="field__head">
-              <div className="token">
-                <img className="token__icon" src={ethIcon} alt="eth logo" />
-                <div className="token__content">
-                  <div className="token__name">
-                    ETH
-                  </div>
-                  <div className="rate">
-                    1 ETH ≈ {rate?.toString()} {TokensData[activeToken].name}
-                  </div>
-                </div>
+          {!isWhiteListActive ?
+            <h3 className="title">
+              {TokensData[activeToken].name.split('$CJ')[1]} TOKEN
+            </h3> :
+            <>
+              <h3 className="title tac">
+                Whitelist
+              </h3>
+              <div className="desc">
+                {isWhitelisted ?
+                  'Congratulations, your wallet has already been added to the whitelist!'
+                  :
+                  'Connect your wallet and get your spot here!'
+                }
+
               </div>
-              <span>
-                You send
-              </span>
-            </div>
-            <input
-              type="number"
-              name='send-token'
-              value={valueETH}
-              onChange={handleValueETHChange}
-              id='send-token'
-              disabled={!isConnected}
-            />
-          </label>
-          <label className='field' htmlFor="get-token">
-            <div className="field__head">
-              <div className="token">
-                <img className="token__icon" src={TokensData[activeToken].icon} alt={TokensData[activeToken].name} />
-                <div className="token__content">
-                  <div className="token__name">
-                    {TokensData[activeToken].name}
-                  </div>
-                </div>
-              </div>
-              <span>
-                You get
-              </span>
-            </div>
-            <input
-              type="number"
-              name='get-token'
-              value={valueToken}
-              onChange={handleValueTokenChange}
-              id='get-token'
-              disabled={!isConnected}
-            />
-          </label>
-          {isConnected &&
-            <div className="progress">
-              <div className="progress__head">
-                <div className="progress__info">
-                  <div className="progress__current">
-                    ${tokensSold?.toString()}
-                  </div>
-                  <div className="progress__max">
-                    / ${(Array.isArray(tokenSales) && tokenSales[1] !== undefined) && tokenSales[1].toString()}
-                  </div>
-                </div>
-                <div className="progress__percent">
-                  {progressPercentage}%
-                </div>
-              </div>
-              <div className="progress__bar">
-                <div className="progress__bar_current" style={{ width: `${progressPercentage}%` }}></div>
-              </div>
-            </div>
+            </>
           }
-          <div className="desc">
-            Connect your wallet to buy {TokensData[activeToken].name}
-          </div>
-          {!address ?
-            <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
-            :
-            <input className='btn' type="submit" value='Buy Tokens' onClick={() => setShowPopup(true)} />
+          {!isWhiteListActive &&
+            <>
+              <label className='field' htmlFor="send-token">
+                <div className="field__head">
+                  <div className="token">
+                    <img className="token__icon" src={ethIcon} alt="eth logo" />
+                    <div className="token__content">
+                      <div className="token__name">
+                        ETH
+                      </div>
+                      <div className="rate">
+                        1 ETH ≈ {rate?.toString()} {TokensData[activeToken].name}
+                      </div>
+                    </div>
+                  </div>
+                  <span>
+                    You send
+                  </span>
+                </div>
+                <input
+                  type="number"
+                  name='send-token'
+                  value={valueETH}
+                  onChange={handleValueETHChange}
+                  id='send-token'
+                  disabled={!isConnected}
+                />
+              </label>
+              <label className='field' htmlFor="get-token">
+                <div className="field__head">
+                  <div className="token">
+                    <img className="token__icon" src={TokensData[activeToken].icon} alt={TokensData[activeToken].name} />
+                    <div className="token__content">
+                      <div className="token__name">
+                        {TokensData[activeToken].name}
+                      </div>
+                    </div>
+                  </div>
+                  <span>
+                    You get
+                  </span>
+                </div>
+                <input
+                  type="number"
+                  name='get-token'
+                  value={valueToken}
+                  onChange={handleValueTokenChange}
+                  id='get-token'
+                  disabled={!isConnected}
+                />
+              </label>
+              {isConnected &&
+                <div className="progress">
+                  <div className="progress__head">
+                    <div className="progress__info">
+                      <div className="progress__current">
+                        ${tokensSold?.toString()}
+                      </div>
+                      <div className="progress__max">
+                        / ${(Array.isArray(tokenSales) && tokenSales[1] !== undefined) && tokenSales[1].toString()}
+                      </div>
+                    </div>
+                    <div className="progress__percent">
+                      {progressPercentage}%
+                    </div>
+                  </div>
+                  <div className="progress__bar">
+                    <div className="progress__bar_current" style={{ width: `${progressPercentage}%` }}></div>
+                  </div>
+                </div>
+              }
+              <div className="desc">
+                Connect your wallet to buy {TokensData[activeToken].name}
+              </div>
+              {!address ?
+                <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
+                :
+                <input className='btn' type="submit" value='Buy Tokens' onClick={() => setShowPopup(true)} />
+              }
+              <div className="text">
+                90% of the total supply is going to the open market via this Sale!
+              </div>
+            </>
           }
-          <div className="text">
-            90% of the total supply is going to the open market via this Sale!
-          </div>
+
+          {isWhiteListActive &&
+            <>
+              <div className="progress">
+                <div className="progress__head">
+                  <div className="progress__info">
+                    <div className="progress__current">
+                      0
+                    </div>
+                    <div className="progress__max">
+                      / 500
+                    </div>
+                  </div>
+                  <div className="progress__percent">
+                    {progressPercentage}%
+                  </div>
+                </div>
+                <div className="progress__bar">
+                  <div className="progress__bar_current" style={{ width: `${progressPercentage}%` }}></div>
+                </div>
+              </div>
+              {!address ?
+                <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
+                :
+                <>
+                  {!isWhitelisted &&
+                    <input className='btn' type="button" value='Add to Whitelist' onClick={() => addAddressToWhiteList()} />
+                  }
+                </>
+              }
+            </>
+          }
         </Form>
       </Formik>
-      <TokensTabs
-        activeToken={activeToken}
-        setActiveToken={setActiveToken}
-      />
+      {!isWhiteListActive &&
+        <TokensTabs
+          activeToken={activeToken}
+          setActiveToken={setActiveToken}
+        />
+      }
       {
         showModal && !address &&
         <ConnectModal
@@ -233,6 +317,6 @@ export const SalesForm = () => {
           setShowModal={setShowModal}
         />
       }
-    </div>
+    </div >
   )
 }
