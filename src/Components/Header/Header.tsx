@@ -16,27 +16,27 @@ export const Header = () => {
         <div className={`menu ${isShowMenu ? 'active' : ''}`}>
           <ul>
             <li>
-              <a href="#home">
+              <a href="/#home">
                 Home
               </a>
             </li>
             <li>
-              <a href="#brand">
+              <a href="/#brand">
                 Discover ChainVerse
               </a>
             </li>
             <li>
-              <a href="#characters">
+              <a href="/#characters">
                 Choose your Joe
               </a>
             </li>
             <li>
-              <a href="#ecosystem">
+              <a href="/#ecosystem">
                 Ecosystem
               </a>
             </li>
             <li>
-              <a href="#subscribe">
+              <a href="/#subscribe">
                 Subscribe
               </a>
             </li>

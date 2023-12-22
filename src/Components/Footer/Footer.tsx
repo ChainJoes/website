@@ -1,14 +1,14 @@
 import React from 'react';
 import './Footer.scss'
-import {Cta} from "./Cta/Cta";
-import {Logo} from "../Logo/Logo";
-import {Socials} from "../Socials/Socials";
-import {m5Logo} from "../Icons/Icons";
+import { Cta } from "./Cta/Cta";
+import { Logo } from "../Logo/Logo";
+import { Socials } from "../Socials/Socials";
+import { m5Logo } from "../Icons/Icons";
 
 export const Footer = () => {
-  return(
+  return (
     <section className='home-footer'>
-      <Cta/>
+      <Cta />
       <footer>
         <div className="wrap">
           <div className="left">
@@ -21,27 +21,27 @@ export const Footer = () => {
                 Menu
               </li>
               <li>
-                <a href="#home">
+                <a href="/#home">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#brand">
+                <a href="/#brand">
                   Discover ChainVerse
                 </a>
               </li>
               <li>
-                <a href="#characters">
+                <a href="/#characters">
                   Choose your Joe
                 </a>
               </li>
               <li>
-                <a href="#ecosystem">
+                <a href="/#ecosystem">
                   Ecosystem
                 </a>
               </li>
               <li>
-                <a href="#subscribe">
+                <a href="/#subscribe">
                   Subscribe
                 </a>
               </li>

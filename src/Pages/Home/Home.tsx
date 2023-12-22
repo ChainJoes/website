@@ -9,7 +9,7 @@ import {Promo} from "./Sections/Promo/Promo";
 export const Home = () => (
   <main>
     <Hero/>
-    {/* <Promo/> */}
+    <Promo/>
     <Brand/>
     <RunningLine/>
     <Characters/>

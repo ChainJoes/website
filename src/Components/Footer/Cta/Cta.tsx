@@ -34,12 +34,10 @@ export const Cta = () => {
             initialValues={{ email: '' }}
             validationSchema={validationSchema}
             onSubmit={(values, { resetForm }) => {
-              console.log(values);
               axios.post('http://79.137.203.212:8044/sub', {
                 email: values.email
               })
               .then(response => {
-                console.log(response.data);
                 resetForm();
                 setShowPopup(true);
               })

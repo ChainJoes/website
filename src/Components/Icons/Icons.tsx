@@ -90,7 +90,7 @@ export const m5Logo = (
     </g>
     <defs>
       <filter id="filter0_i_12_45" x="56.192" y="-7.10265" width="374.633" height="193.227" filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB">
+        colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -102,7 +102,7 @@ export const m5Logo = (
         <feBlend mode="normal" in2="shape" result="effect1_innerShadow_12_45" />
       </filter>
       <filter id="filter1_ii_12_45" x="-4.81491" y="118.916" width="221.124" height="285.359"
-        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -121,7 +121,7 @@ export const m5Logo = (
         <feBlend mode="normal" in2="effect1_innerShadow_12_45" result="effect2_innerShadow_12_45" />
       </filter>
       <filter id="filter2_ii_12_45" x="213.053" y="123.294" width="217.663" height="281.165"
-        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"

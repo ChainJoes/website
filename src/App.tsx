@@ -58,7 +58,7 @@ export const App = () => {
           <Header/>
           <Routes>
             <Route path='/' element={<Home/>}/>
-            <Route path='/sales-in-dev' element={<Sales/>}/>
+            <Route path='/sales' element={<Sales/>}/>
           </Routes>
           <Footer/>
         </div>

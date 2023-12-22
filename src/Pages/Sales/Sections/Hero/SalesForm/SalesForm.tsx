@@ -10,10 +10,11 @@ import { presaleContractAbi } from './Abi/presaleAbi';
 import { whitelistContractAbi } from './Abi/whiteListAbi';
 import { StatusModal } from './StatusPopup';
 import { parseEther } from 'viem';
+import LoadingPopup from '../../../../../Components/LoadingPopup/LoadingPopup';
 
 export const SalesForm = () => {
   const presaleAddress = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
-  const whiteListAdress = '0xec63a738f90391e7426a8d9395d7991aef4dcbf4';
+  const whiteListAdress = '0x046a99470b99abd0550311bd241dcf0999d6016e';
   const { connect, connectors } = useConnect();
   const { isConnected, address } = useAccount();
   const { data: ethBalance } = useBalance({ address: address });
@@ -23,6 +24,8 @@ export const SalesForm = () => {
   const [valueETH, setValueETH] = useState<number | ''>('');
   const [valueToken, setValueToken] = useState<number | ''>('');
   const [isWhiteListActive, setWhiteListActive] = useState(true);
+  const [isLoading, setLoading] = useState(false);
+
 
   const handleValueETHChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (rate) {
@@ -46,22 +49,25 @@ export const SalesForm = () => {
     }
   };
 
-  const { write: addToWhiteList } = useContractWrite({
+  const { write: addToWhiteList, isLoading: isAddToWhiteListLoding, isSuccess: isAddToWhiteListSuccess } = useContractWrite({
     address: whiteListAdress,
     abi: whitelistContractAbi,
     functionName: 'addToWhitelist',
     account: address,
-    args: [address]
   });
-
 
   const addAddressToWhiteList = useCallback(async () => {
     try {
       await addToWhiteList();
-      //TODO: ADD ALERT
     } catch (e) {
+    } finally {
+      console.log(isAddToWhiteListLoding);
     }
-  }, [addToWhiteList]);
+  }, [isAddToWhiteListLoding, addToWhiteList]);
+
+  useEffect(() => {
+    setLoading(isAddToWhiteListLoding);
+  }, [isAddToWhiteListLoding]);
 
   const { data: isWhitelisted } = useContractRead({
     address: whiteListAdress,
@@ -71,7 +77,12 @@ export const SalesForm = () => {
     watch: true
   });
 
-  console.log(isWhitelisted);
+  const { data: whitelistCount } = useContractRead({
+    address: whiteListAdress,
+    abi: whitelistContractAbi,
+    functionName: 'getWhitelistCount',
+    watch: true
+  });
 
   const { data: rate } = useContractRead({
     address: presaleAddress,
@@ -107,9 +118,14 @@ export const SalesForm = () => {
     return (firstNumber / secondNumber) * 100;
   }
 
-  const progressPercentage = calculatePercentage(
+  const progressSoldPercentage = calculatePercentage(
     parseInt(tokensSold?.toString() ?? "0"),
     parseInt(tokenSalesCount ?? "0")
+  )
+
+  const progressWhiteListPercentage = calculatePercentage(
+    parseInt(whitelistCount?.toString() ?? "0"),
+    500
   )
 
   const { write: buyTokensWithEther, isLoading: isPresaleLoading, isSuccess: isPresaleSuccess, data: txPurchase } = useContractWrite({
@@ -119,7 +135,7 @@ export const SalesForm = () => {
     account: address
   });
 
-  const BuyPayAccept = useCallback(async () => {
+  const BuyToken = useCallback(async () => {
     if ((ethBalance && +valueETH > +ethBalance) || valueETH === 0) {
       //TODO: ADD ALERT
       return;
@@ -248,11 +264,11 @@ export const SalesForm = () => {
                       </div>
                     </div>
                     <div className="progress__percent">
-                      {progressPercentage}%
+                      {progressSoldPercentage}%
                     </div>
                   </div>
                   <div className="progress__bar">
-                    <div className="progress__bar_current" style={{ width: `${progressPercentage}%` }}></div>
+                    <div className="progress__bar_current" style={{ width: `${progressSoldPercentage < 3 ? 3 : progressSoldPercentage}%` }}></div>
                   </div>
                 </div>
               }
@@ -276,18 +292,18 @@ export const SalesForm = () => {
                 <div className="progress__head">
                   <div className="progress__info">
                     <div className="progress__current">
-                      0
+                      {whitelistCount?.toString()}
                     </div>
                     <div className="progress__max">
                       / 500
                     </div>
                   </div>
                   <div className="progress__percent">
-                    {progressPercentage}%
+                    {progressWhiteListPercentage}%
                   </div>
                 </div>
                 <div className="progress__bar">
-                  <div className="progress__bar_current" style={{ width: `${progressPercentage}%` }}></div>
+                  <div className="progress__bar_current" style={{ width: `${progressWhiteListPercentage < 3 ? 3 : progressWhiteListPercentage}%` }}></div>
                 </div>
               </div>
               {!address ?
@@ -317,6 +333,9 @@ export const SalesForm = () => {
           setShowModal={setShowModal}
         />
       }
+      <LoadingPopup
+        isLoading={isLoading}
+      />
     </div >
   )
 }
