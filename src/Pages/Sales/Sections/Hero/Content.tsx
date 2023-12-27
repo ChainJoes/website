@@ -3,7 +3,7 @@ import React from 'react'
 export const Content = () => (
   <div className="content">
     <h2 className="title">
-      Fair Sale oh our Hero MEME tokens!
+      Fair Sale of our Hero MEME tokens!
     </h2>
     <h1 className="title">
       Explore all heroes from Chain Joes!

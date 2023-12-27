@@ -4,13 +4,13 @@ import ethIcon from './Assets/ethereum.png'
 import { TokensTabs } from "./TokensTabs";
 import { TokensData } from "./TokensData";
 import { useAccount, useConnect, useDisconnect, useBalance, useContractWrite, useContractRead, useWaitForTransaction } from 'wagmi';
-import './SalesForm.scss'
 import ConnectModal from './ConnectModal';
 import { presaleContractAbi } from './Abi/presaleAbi';
 import { whitelistContractAbi } from './Abi/whiteListAbi';
 import { StatusModal } from './StatusPopup';
-import { parseEther } from 'viem';
 import LoadingPopup from '../../../../../Components/LoadingPopup/LoadingPopup';
+import { parseEther } from 'viem';
+import './SalesForm.scss'
 
 export const SalesForm = () => {
   const presaleAddress = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
@@ -188,6 +188,11 @@ export const SalesForm = () => {
               {TokensData[activeToken].name.split('$CJ')[1]} TOKEN
             </h3> :
             <>
+              <div className="heroes">
+                {TokensData.map((item, index) => (
+                  <img className='heroes__item' key={`heroKey${index}`} src={item.icon} alt={item.name} />
+                ))}
+              </div>
               <h3 className="title tac">
                 Whitelist
               </h3>
