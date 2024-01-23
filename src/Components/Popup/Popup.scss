@@ -1,9 +1,11 @@
+@import '/src/mixins.scss';
+
 .popup {
   position: fixed;
   top: 20px;
   right: 0px;
   padding: 20px;
-  z-index: 9999;
+  z-index: 999;
   border-radius: 24px 0 0 24px;
   background: rgba(15, 15, 15, 0.80);
   box-shadow: 0px 16px 16px 0px rgba(15, 15, 15, 0.24);
@@ -27,6 +29,21 @@
     svg {
       width: 24px;
       height: 24px;
+    }
+  }
+
+  @include _768 {
+    max-width: 90%;
+
+    &-content {
+      gap: 8px;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
     }
   }
 }

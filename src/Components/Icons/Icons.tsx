@@ -90,7 +90,7 @@ export const m5Logo = (
     </g>
     <defs>
       <filter id="filter0_i_12_45" x="56.192" y="-7.10265" width="374.633" height="193.227" filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB">
+        colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -102,7 +102,7 @@ export const m5Logo = (
         <feBlend mode="normal" in2="shape" result="effect1_innerShadow_12_45" />
       </filter>
       <filter id="filter1_ii_12_45" x="-4.81491" y="118.916" width="221.124" height="285.359"
-        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -121,7 +121,7 @@ export const m5Logo = (
         <feBlend mode="normal" in2="effect1_innerShadow_12_45" result="effect2_innerShadow_12_45" />
       </filter>
       <filter id="filter2_ii_12_45" x="213.053" y="123.294" width="217.663" height="281.165"
-        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -217,6 +217,20 @@ export const Success = (
     <defs>
       <clipPath id="clip0_2024_340">
         <rect width="64" height="64" fill="white" transform="translate(0 0.5)" />
+      </clipPath>
+    </defs>
+  </svg>
+)
+
+export const Error = (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_2024_348)">
+      <path d="M54.6413 9.36745C42.1629 -3.11093 21.8526 -3.11093 9.37422 9.36745C3.32966 15.4144 0 23.4523 0 32.0009C0 40.5495 3.32966 48.5875 9.37422 54.632C15.6147 60.8724 23.8112 63.9914 32.0077 63.9914C40.2041 63.9914 48.4008 60.8724 54.6412 54.632C67.1195 42.1536 67.1195 21.8482 54.6413 9.36745ZM51.1355 51.1262C40.5885 61.6732 23.4269 61.6732 12.8799 51.1262C7.77258 46.0189 4.95855 39.2256 4.95855 32.0009C4.95855 24.7762 7.77258 17.9829 12.8799 12.8731C23.4269 2.32613 40.5885 2.32863 51.1355 12.8731C61.68 23.4201 61.68 40.5817 51.1355 51.1262Z" fill="#E62E2E" />
+      <path d="M42.6906 38.8538L35.6717 31.8448L42.6906 24.8359C43.6575 23.869 43.6575 22.2996 42.6931 21.3301C41.7237 20.3582 40.1543 20.3607 39.1849 21.3276L32.1611 28.3415L25.1373 21.3276C24.1679 20.3607 22.5985 20.3582 21.6291 21.3301C20.6623 22.2995 20.6623 23.8689 21.6316 24.8359L28.6506 31.8448L21.6316 38.8538C20.6623 39.8206 20.6623 41.39 21.6291 42.3595C22.1127 42.8454 22.7498 43.0859 23.3845 43.0859C24.0193 43.0859 24.6539 42.8429 25.1374 42.3619L32.1612 35.348L39.1851 42.3619C39.6686 42.8454 40.3032 43.0859 40.938 43.0859C41.5727 43.0859 42.2098 42.8429 42.6934 42.3595C43.66 41.39 43.66 39.8206 42.6906 38.8538Z" fill="#E62E2E" />
+    </g>
+    <defs>
+      <clipPath id="clip0_2024_348">
+        <rect width="64" height="64" fill="white" />
       </clipPath>
     </defs>
   </svg>

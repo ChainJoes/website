@@ -7,9 +7,6 @@ interface ConnectModalProps {
 }
 
 const ConnectModal: React.FC<ConnectModalProps> = ({ connect, connectors, setShowModal }) => {
-
-    console.log(connectors);
-
     return (
         <div className="connect-modal" onClick={() => setShowModal(false)}>
             <div className="wrap" onClick={(e) => e.stopPropagation()}>

@@ -12,9 +12,9 @@ export const Ecosystem = () => {
   return (
     <section className='ecosystem' id='ecosystem'>
       <div className="wrap">
-        <ScrollReveal elementType="h2" className="title">
+        <h2 className="title">
           CHAIN JOES ECOSYSTEM
-        </ScrollReveal>
+        </h2>
         <div className="ecosystem__items">
           {EcosystemData.map((item, index) => (
             <EcosystemItem

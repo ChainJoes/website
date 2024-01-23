@@ -1,13 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import './Popup.scss';
-import { Success } from '../Icons/Icons';
+import { Success, Error } from '../Icons/Icons';
 
 interface PopupProps {
   onClose: () => void;
+  isError: boolean;
+  Text: string
 }
 
-const Popup: FC<PopupProps> = ({ onClose }) => {
+const Popup: FC<PopupProps> = ({ onClose, isError = false, Text }) => {
   const [isActive, setIsActive] = useState(false);
+
+  const icon = isError ? Error : Success;
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,11 +20,11 @@ const Popup: FC<PopupProps> = ({ onClose }) => {
 
     setTimeout(() => {
       setIsActive(false);
-    }, 2000);
+    }, 4000);
 
     const timer = setTimeout(() => {
       onClose();
-    }, 2300);
+    }, 4300);
 
     return () => clearTimeout(timer);
   }, [onClose]);
@@ -28,7 +32,7 @@ const Popup: FC<PopupProps> = ({ onClose }) => {
   return (
     <div className={`popup ${isActive ? 'active' : ''}`}>
       <div className="popup-content">
-        {Success} Success! Your subscription has been submitted.
+        {icon} {Text}
       </div>
     </div>
   );

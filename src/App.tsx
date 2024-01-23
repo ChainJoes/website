@@ -6,16 +6,49 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {Footer} from "./Components/Footer/Footer";
 import {Sales} from "./Pages/Sales/Sales";
 import {WagmiConfig, createConfig, configureChains} from 'wagmi'
-import {createPublicClient, http} from "viem";
-import { goerli } from 'viem/chains';
+import { goerli, mainnet } from 'viem/chains';
+import { publicProvider } from 'wagmi/providers/public';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { Buffer } from "buffer";
 
-const config = createConfig({
+if (!window.Buffer) {
+  window.Buffer = Buffer;
+}
+
+const { chains, publicClient  } = configureChains(
+  [mainnet],
+  [publicProvider()],
+);
+
+const config  = createConfig({
   autoConnect: true,
-  publicClient: createPublicClient({
-    chain: goerli,
-    transport: http()
-  }),
-})
+  publicClient,
+  connectors: [
+      new MetaMaskConnector({ chains }),
+      new CoinbaseWalletConnector({
+          chains,
+          options: {
+              appName: 'wagmi',
+          },
+      }),
+      new WalletConnectConnector({
+          chains,
+          options: {
+              projectId: 'd6310936cc880b14ead9e2652c25f96e',
+          },
+      }),
+      new InjectedConnector({
+          chains,
+          options: {
+              name: 'Injected',
+              shimDisconnect: true,
+          },
+      }),
+  ],
+});
 
 export const App = () => {
   return (
@@ -25,7 +58,7 @@ export const App = () => {
           <Header/>
           <Routes>
             <Route path='/' element={<Home/>}/>
-            <Route path='/sales-in-dev' element={<Sales/>}/>
+            <Route path='/sales' element={<Sales/>}/>
           </Routes>
           <Footer/>
         </div>
