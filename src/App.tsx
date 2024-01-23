@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {Footer} from "./Components/Footer/Footer";
 import {Sales} from "./Pages/Sales/Sales";
 import {WagmiConfig, createConfig, configureChains} from 'wagmi'
-import { goerli } from 'viem/chains';
+import { goerli, mainnet } from 'viem/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -19,7 +19,7 @@ if (!window.Buffer) {
 }
 
 const { chains, publicClient  } = configureChains(
-  [goerli],
+  [mainnet],
   [publicProvider()],
 );
 

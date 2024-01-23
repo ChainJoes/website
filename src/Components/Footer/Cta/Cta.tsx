@@ -37,13 +37,13 @@ export const Cta = () => {
               axios.post('http://79.137.203.212:8044/sub', {
                 email: values.email
               })
-              .then(response => {
-                resetForm();
-                setShowPopup(true);
-              })
-              .catch(error => {
-                console.error(error);
-              });
+                .then(response => {
+                  resetForm();
+                  setShowPopup(true);
+                })
+                .catch(error => {
+                  console.error(error);
+                });
             }}
           >
             {({ errors, touched }) => (
@@ -54,7 +54,7 @@ export const Cta = () => {
 
                 <label htmlFor="email" className={touched.email && errors.email ? 'error' : ''}>
                   <span>Your email</span>
-                  <Field type="text" id="email" name="email"/>
+                  <Field type="text" id="email" name="email" />
                   <button type="submit">
                     {arrowLeft}
                   </button>
@@ -65,7 +65,7 @@ export const Cta = () => {
             )}
           </Formik>
         </div>
-        {showPopup && <Popup onClose={() => setShowPopup(false)} />}
+        {showPopup && <Popup isError={false} Text={'Success! Your subscription has been submitted.'} onClose={() => setShowPopup(false)} />}
       </div>
     </section>
   );

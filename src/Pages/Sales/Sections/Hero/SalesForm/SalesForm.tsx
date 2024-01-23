@@ -7,31 +7,49 @@ import { useAccount, useConnect, useDisconnect, useBalance, useContractWrite, us
 import ConnectModal from './ConnectModal';
 import { presaleContractAbi } from './Abi/presaleAbi';
 import { whitelistContractAbi } from './Abi/whiteListAbi';
+import { livePresaleAbi } from './Abi/livePresaleAbi';
 import { StatusModal } from './StatusPopup';
-import LoadingPopup from '../../../../../Components/LoadingPopup/LoadingPopup';
+import LoadingPopup from '../../../../../Components/Popups/LoadingPopup';
 import { parseEther } from 'viem';
 import './SalesForm.scss'
+import Popup from '../../../../../Components/Popup/Popup';
+import Web3 from 'web3';
+import SuccessPopup from '../../../../../Components/Popups/SuccessPopup';
+import { Clain } from './Claim';
 
 export const SalesForm = () => {
   const presaleAddress = '0xf2d17b5701b89811d87c185862e7a1a4c634cea7';
   const whiteListAdress = '0x046a99470b99abd0550311bd241dcf0999d6016e';
+  const livePresaleAddress = '0xa45b235B05A9B0a87c803f2124D8e41D14eF0210';
   const { connect, connectors } = useConnect();
   const { isConnected, address } = useAccount();
   const { data: ethBalance } = useBalance({ address: address });
   const [activeToken, setActiveToken] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const [showAlertPopup, setShowAlertPopup] = useState(false);
+  const [alertText, setAlertText] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [valueETH, setValueETH] = useState<number | ''>('');
   const [valueToken, setValueToken] = useState<number | ''>('');
-  const [isWhiteListActive, setWhiteListActive] = useState(true);
+  const [isWhiteListActive, setWhiteListActive] = useState(false);
+  const [isWhiteListEnded, setWhiteListEnded] = useState(false);
+  const [isWhiteListFormShow, setWhiteListFormShow] = useState(false);
+  const [claimedAmount, setClaimedAmount] = useState(0);
+  const [isClaimActive, setClaimActive] = useState(false);
   const [isLoading, setLoading] = useState(false);
-
+  const [isSuccess, setSuccess] = useState(false);
+  const [successText, setSuccessText] = useState('');
 
   const handleValueETHChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (rate) {
       const newValueETH = e.target.value === '' ? '' : Number(e.target.value);
-      setValueETH(newValueETH);
-      setValueToken(newValueETH === '' ? '' : newValueETH * parseFloat(rate?.toString()));
+      if (newValueETH && newValueETH < 0.01) {
+        setValueETH(0.01);
+        setValueToken(10);
+      } else {
+        setValueETH(newValueETH);
+        setValueToken(newValueETH === '' ? '' : newValueETH * parseFloat(rate?.toString()));
+      }
     } else {
       setValueETH(0);
       setValueToken(0);
@@ -41,8 +59,13 @@ export const SalesForm = () => {
   const handleValueTokenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (rate) {
       const newValueToken = e.target.value === '' ? '' : Number(e.target.value);
-      setValueToken(newValueToken);
-      setValueETH(newValueToken === '' ? '' : newValueToken / parseFloat(rate?.toString()));
+      if (newValueToken && newValueToken < 10) {
+        setValueETH(0.01);
+        setValueToken(10);
+      } else {
+        setValueToken(newValueToken);
+        setValueETH(newValueToken === '' ? '' : newValueToken / parseFloat(rate?.toString()));
+      }
     } else {
       setValueETH(0);
       setValueToken(0);
@@ -50,8 +73,8 @@ export const SalesForm = () => {
   };
 
   const { write: addToWhiteList, isLoading: isAddToWhiteListLoding, isSuccess: isAddToWhiteListSuccess } = useContractWrite({
-    address: whiteListAdress,
-    abi: whitelistContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'addToWhitelist',
     account: address,
   });
@@ -60,52 +83,72 @@ export const SalesForm = () => {
     try {
       await addToWhiteList();
     } catch (e) {
-    } finally {
-      console.log(isAddToWhiteListLoding);
     }
-  }, [isAddToWhiteListLoding, addToWhiteList]);
+  }, [addToWhiteList]);
 
-  useEffect(() => {
-    setLoading(isAddToWhiteListLoding);
-  }, [isAddToWhiteListLoding]);
+  const { data: hasWhitelistPeriodActive } = useContractRead({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
+    functionName: 'isWhitelistPeriodActive',
+    watch: true
+  });
+
+  const { data: hasWhitelistPeriodEnded } = useContractRead({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
+    functionName: 'isWhitelistPeriodEnded',
+    watch: true
+  });
 
   const { data: isWhitelisted } = useContractRead({
-    address: whiteListAdress,
-    abi: whitelistContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'isWhitelisted',
     args: [address],
     watch: true
   });
 
+  useEffect(() => {
+    setLoading(isAddToWhiteListLoding);
+    // TODO: Do later
+  }, [isAddToWhiteListLoding]);
+
   const { data: whitelistCount } = useContractRead({
-    address: whiteListAdress,
-    abi: whitelistContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'getWhitelistCount',
     watch: true
   });
 
   const { data: rate } = useContractRead({
-    address: presaleAddress,
-    abi: presaleContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'getCurrentRate',
-    args: [TokensData[activeToken].token],
+    args: [TokensData[activeToken].tokenId],
     watch: true
   });
 
-
   const { data: tokenSales } = useContractRead({
-    address: presaleAddress,
-    abi: presaleContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'tokenSales',
-    args: [TokensData[activeToken].token],
+    args: [TokensData[activeToken].tokenId],
     watch: true
   });
 
   const { data: tokensSold } = useContractRead({
-    address: presaleAddress,
-    abi: presaleContractAbi,
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'getTotalTokensSold',
-    args: [TokensData[activeToken].token],
+    args: [TokensData[activeToken].tokenId],
+    watch: true
+  });
+
+  const { data: tokensAvailable } = useContractRead({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
+    functionName: 'getTokensAvailable',
+    args: [TokensData[activeToken].tokenId],
     watch: true
   });
 
@@ -115,12 +158,13 @@ export const SalesForm = () => {
     if (secondNumber === 0) {
       return 0;
     }
-    return (firstNumber / secondNumber) * 100;
+    const result = (firstNumber / secondNumber) * 100
+    return parseFloat(result.toFixed(2));
   }
 
   const progressSoldPercentage = calculatePercentage(
     parseInt(tokensSold?.toString() ?? "0"),
-    parseInt(tokenSalesCount ?? "0")
+    parseInt(tokensAvailable?.toString() ?? "0")
   )
 
   const progressWhiteListPercentage = calculatePercentage(
@@ -128,50 +172,109 @@ export const SalesForm = () => {
     500
   )
 
-  const { write: buyTokensWithEther, isLoading: isPresaleLoading, isSuccess: isPresaleSuccess, data: txPurchase } = useContractWrite({
-    address: presaleAddress,
-    abi: presaleContractAbi,
+  const { write: buyTokensWithEther, error: error, isError: isTxError, isLoading: isPresaleLoading, isSuccess: isPresaleSuccess, data: txPurchase } = useContractWrite({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
     functionName: 'buy',
-    account: address
+    account: address,
   });
 
   const BuyToken = useCallback(async () => {
     if ((ethBalance && +valueETH > +ethBalance) || valueETH === 0) {
-      //TODO: ADD ALERT
+      setAlertText('Check your wallet balance!');
+      setShowAlertPopup(true);
       return;
     }
-    try {
-      await buyTokensWithEther({ args: [parseEther(valueETH.toString()), TokensData[activeToken].token.toString()] });
-      //TODO: ADD ALERT
-    } catch (e) {
+    if (!valueETH) {
+      setAlertText('Specify the correct number of tokens!');
+      setShowAlertPopup(true);
+      return;
     }
-  }, [valueETH, ethBalance, activeToken, buyTokensWithEther]);
+    if (isWhiteListActive && !isWhiteListEnded) {
+      if (isWhitelisted) {
+        await buyTokensWithEther({ args: [TokensData[activeToken].tokenId], value: parseEther(valueETH.toString()) });
+      } else {
+        setAlertText('Sale only for whitelist addresses!');
+      }
+    }
+
+    if (!isWhiteListActive && isWhiteListEnded) {
+      await buyTokensWithEther({ args: [TokensData[activeToken].tokenId], value: parseEther(valueETH.toString()) });
+    }
+  }, [ethBalance, valueETH, isWhiteListActive, isWhiteListEnded, isWhitelisted, buyTokensWithEther, activeToken]);
 
   const { data: txData, isSuccess: isTxSuccess, isLoading: isTxLoading, refetch: refreshTxData } = useWaitForTransaction({ hash: txPurchase?.hash });
 
   useEffect(() => {
-    if (isTxLoading) {
-      // toastId.current = toast.info(
-      //     `Processing ${ethAmount * rate.toString() } PAYT`, {
-      //         position: "top-right",
-      //         autoClose: 30000,
-      //         hideProgressBar: false,
-      //         closeOnClick: true,
-      //         pauseOnHover: true,
-      //         draggable: true,
-      //         progress: undefined,
-      //     });
+    if (isTxError && error) {
+      setAlertText(error?.message.split('.')[0]);
+      setShowAlertPopup(true);
     }
+    setLoading(isTxLoading);
 
     if (isTxSuccess) {
-      // toast.update(toastId.current, {
-      //     render: `Successfully bought ${ethAmount * rate.toString() } PAYT`,
-      //     type: toast.TYPE.SUCCESS,
-      //     autoClose: 5000
-      // });
-      refreshTxData();
+      setSuccessText(`You’ve bought ${valueToken} ${TokensData[activeToken].name}`)
+      setSuccess(isTxSuccess);
+
+      setTimeout(() => {
+        refreshTxData();
+      }, 3500);
     }
-  }, [isTxSuccess, isTxLoading]);
+  }, [isTxSuccess, isTxLoading, isTxError, refreshTxData, error?.message, error, valueToken, activeToken]);
+
+
+  const { data: claimed } = useContractRead({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
+    functionName: 'getClaimedAmount',
+    args: [TokensData[activeToken].tokenId, address],
+    watch: true
+  });
+
+
+  const { write: claim, error: claimError, isError: isClaimError, isLoading: isClaimLoading, isSuccess: isClaimSuccess, data: claimPurchase } = useContractWrite({
+    address: livePresaleAddress,
+    abi: livePresaleAbi,
+    functionName: 'claim',
+    account: address,
+  });
+
+  const claimToken = useCallback(async () => {
+    await claim({ args: [TokensData[activeToken].tokenId] });
+  }, [claim, activeToken]);
+
+  const { data: txClaimData, isSuccess: isTxClaimSuccess, isLoading: isTxClaimLoading, refetch: refreshClaimData } = useWaitForTransaction({ hash: claimPurchase?.hash });
+
+
+  useEffect(() => {
+    setClaimedAmount(claimed ? parseFloat(Web3.utils.fromWei(claimed.toString(), 'ether')) : 0);
+
+    if (isClaimError && claimError) {
+      setAlertText(claimError?.message.split('.')[0]);
+      setShowAlertPopup(true);
+    }
+    setLoading(isTxClaimLoading);
+
+    if (isTxClaimSuccess) {
+      setSuccessText(`All ${TokensData[activeToken].name} tokens were claimed successfully`);
+      setSuccess(isTxClaimSuccess);
+
+      setTimeout(() => {
+        refreshClaimData();
+      }, 3500);
+    }
+  }, [activeToken, claimError, claimed, isClaimError, isTxClaimLoading, isTxClaimSuccess, refreshClaimData, refreshTxData]);
+
+  useEffect(() => {
+    // TODO: smart contract white list logic
+    // setWhiteListActive(!!hasWhitelistPeriodActive);
+    // setWhiteListEnded(!!hasWhitelistPeriodEnded);
+    if (parseInt(whitelistCount?.toString() ?? "0") >= 500) {
+      setWhiteListActive(true);
+    }
+    setClaimActive(isWhiteListEnded && Array.isArray(tokenSales) && tokenSales[5]);
+    setWhiteListFormShow(!isWhiteListActive && !isWhiteListEnded);
+  }, [hasWhitelistPeriodActive, hasWhitelistPeriodEnded, isWhiteListActive, isWhiteListEnded, tokenSales, whitelistCount])
 
   return (
     <div className="sales-form">
@@ -183,7 +286,7 @@ export const SalesForm = () => {
       >
         <Form>
           {showPopup && <StatusModal onClose={() => setShowPopup(false)} />}
-          {!isWhiteListActive ?
+          {!isWhiteListFormShow ?
             <h3 className="title">
               {TokensData[activeToken].name.split('$CJ')[1]} TOKEN
             </h3> :
@@ -206,7 +309,7 @@ export const SalesForm = () => {
               </div>
             </>
           }
-          {!isWhiteListActive &&
+          {!isWhiteListFormShow && !isClaimActive &&
             <>
               <label className='field' htmlFor="send-token">
                 <div className="field__head">
@@ -257,41 +360,38 @@ export const SalesForm = () => {
                   disabled={!isConnected}
                 />
               </label>
-              {isConnected &&
-                <div className="progress">
-                  <div className="progress__head">
-                    <div className="progress__info">
-                      <div className="progress__current">
-                        ${tokensSold?.toString()}
-                      </div>
-                      <div className="progress__max">
-                        / ${(Array.isArray(tokenSales) && tokenSales[1] !== undefined) && tokenSales[1].toString()}
-                      </div>
+              <div className="progress">
+                <div className="progress__head">
+                  <div className="progress__info">
+                    <div className="progress__current">
+                      ${tokensSold ? Web3.utils.fromWei(tokensSold?.toString(), 'ether') : 0}
                     </div>
-                    <div className="progress__percent">
-                      {progressSoldPercentage}%
+                    <div className="progress__max">
+                      / ${tokensAvailable ? Web3.utils.fromWei(tokensAvailable?.toString(), 'ether') : 0}
                     </div>
                   </div>
-                  <div className="progress__bar">
-                    <div className="progress__bar_current" style={{ width: `${progressSoldPercentage < 3 ? 3 : progressSoldPercentage}%` }}></div>
+                  <div className="progress__percent">
+                    {progressSoldPercentage}%
                   </div>
                 </div>
-              }
+                <div className="progress__bar">
+                  <div className="progress__bar_current" style={{ width: `${progressSoldPercentage < 3 ? 3 : progressSoldPercentage}%` }}></div>
+                </div>
+              </div>
               <div className="desc">
                 Connect your wallet to buy {TokensData[activeToken].name}
               </div>
               {!address ?
                 <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
                 :
-                <input className='btn' type="submit" value='Buy Tokens' onClick={() => setShowPopup(true)} />
+                <input className='btn' type="submit" value='Buy Tokens' onClick={() => BuyToken()} />
               }
               <div className="text">
                 90% of the total supply is going to the open market via this Sale!
               </div>
             </>
           }
-
-          {isWhiteListActive &&
+          {isWhiteListFormShow &&
             <>
               <div className="progress">
                 <div className="progress__head">
@@ -322,9 +422,27 @@ export const SalesForm = () => {
               }
             </>
           }
+          {!isWhiteListFormShow && isClaimActive &&
+            <>
+              <Clain
+                connect={address?.toString() ? true : false}
+                tokenCount={claimedAmount}
+                token={TokensData[activeToken].name}
+              />
+              <>
+                {!address ?
+                  <input className='btn' type="button" value='Connect Wallet' onClick={() => setShowModal(true)} />
+                  :
+
+                  claimedAmount &&
+                  <input className='btn' type="submit" value='Claim' onClick={() => claimToken()} />
+                }
+              </>
+            </>
+          }
         </Form>
       </Formik>
-      {!isWhiteListActive &&
+      {!isWhiteListFormShow &&
         <TokensTabs
           activeToken={activeToken}
           setActiveToken={setActiveToken}
@@ -341,6 +459,13 @@ export const SalesForm = () => {
       <LoadingPopup
         isLoading={isLoading}
       />
+      {isSuccess &&
+        <SuccessPopup
+          onClose={() => setSuccess(false)}
+          text={successText}
+        />
+      }
+      {showAlertPopup && <Popup isError={true} Text={alertText} onClose={() => setShowAlertPopup(false)} />}
     </div >
   )
 }

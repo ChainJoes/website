@@ -5,6 +5,7 @@ import {RunningLine} from "./Sections/RunningLine/RunningLine";
 import {Ecosystem} from "./Sections/Ecosystem/Ecosystem";
 import {Characters} from "./Sections/Сharacters/Сharacters";
 import {Promo} from "./Sections/Promo/Promo";
+import { Nft } from './Sections/Nft/Nft';
 
 export const Home = () => (
   <main>
@@ -14,5 +15,6 @@ export const Home = () => (
     <RunningLine/>
     <Characters/>
     <Ecosystem/>
+    <Nft/>
   </main>
 )
