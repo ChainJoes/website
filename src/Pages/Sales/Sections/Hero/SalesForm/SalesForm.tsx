@@ -32,7 +32,7 @@ export const SalesForm = () => {
   const [valueETH, setValueETH] = useState<number | ''>('');
   const [valueToken, setValueToken] = useState<number | ''>('');
   const [isWhiteListActive, setWhiteListActive] = useState(false);
-  const [isWhiteListEnded, setWhiteListEnded] = useState(false);
+  const [isWhiteListEnded, setWhiteListEnded] = useState(true);
   const [isWhiteListFormShow, setWhiteListFormShow] = useState(false);
   const [claimedAmount, setClaimedAmount] = useState(0);
   const [isClaimActive, setClaimActive] = useState(false);
@@ -364,10 +364,10 @@ export const SalesForm = () => {
                 <div className="progress__head">
                   <div className="progress__info">
                     <div className="progress__current">
-                      ${tokensSold ? Web3.utils.fromWei(tokensSold?.toString(), 'ether') : 0}
+                      {tokensSold ? Web3.utils.fromWei(tokensSold?.toString(), 'ether') : 0}
                     </div>
                     <div className="progress__max">
-                      / ${tokensAvailable ? Web3.utils.fromWei(tokensAvailable?.toString(), 'ether') : 0}
+                      / {tokensAvailable ? Web3.utils.fromWei(tokensAvailable?.toString(), 'ether') : 0}
                     </div>
                   </div>
                   <div className="progress__percent">
