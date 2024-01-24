@@ -6,8 +6,6 @@ export const FaqData = [
     content: <>
       <p>
         Yes. Everyone who wishes to participate, can participate. There are no restrictions from us.
-        <br /> <br />
-        We only give our whitelisters earlier access to the sale to reward those who are with us from the beginning.
       </p>
     </>,
   },

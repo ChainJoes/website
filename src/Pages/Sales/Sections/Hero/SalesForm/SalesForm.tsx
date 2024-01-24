@@ -32,7 +32,7 @@ export const SalesForm = () => {
   const [valueETH, setValueETH] = useState<number | ''>('');
   const [valueToken, setValueToken] = useState<number | ''>('');
   const [isWhiteListActive, setWhiteListActive] = useState(false);
-  const [isWhiteListEnded, setWhiteListEnded] = useState(false);
+  const [isWhiteListEnded, setWhiteListEnded] = useState(true);
   const [isWhiteListFormShow, setWhiteListFormShow] = useState(false);
   const [claimedAmount, setClaimedAmount] = useState(0);
   const [isClaimActive, setClaimActive] = useState(false);
