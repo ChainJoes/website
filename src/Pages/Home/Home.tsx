@@ -10,7 +10,6 @@ import { Nft } from './Sections/Nft/Nft';
 export const Home = () => (
   <main>
     <Hero/>
-    <Promo/>
     <Brand/>
     <RunningLine/>
     <Characters/>

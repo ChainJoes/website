@@ -40,7 +40,7 @@ export const CharactersData = [
     charVideo: charVideo1,
     charMobileImg: charMobileImg1,
     icon: charIcon1,
-    tokenName: '$CJTYR',
+    tokenName: 'Mr. Tyr',
   },
   {
     title: 'Anwar',
@@ -69,7 +69,7 @@ export const CharactersData = [
     charVideo: charVideo2,
     charMobileImg: charMobileImg2,
     icon: charIcon2,
-    tokenName: '$CJWAR',
+    tokenName: 'Anwar',
   },
   {
     title: 'DEO',
@@ -99,7 +99,7 @@ export const CharactersData = [
     charVideo: charVideo3,
     charMobileImg: charMobileImg3,
     icon: charIcon3,
-    tokenName: '$CJDEO',
+    tokenName: 'Deo',
   },
   {
     title: 'Shaan',
@@ -126,7 +126,7 @@ export const CharactersData = [
     charVideo: charVideo4,
     charMobileImg: charMobileImg4,
     icon: charIcon4,
-    tokenName: '$CJSHN',
+    tokenName: 'Shaan',
   },
   {
     title: 'Milcy',
@@ -150,7 +150,7 @@ export const CharactersData = [
     charVideo: charVideo5,
     charMobileImg: charMobileImg5,
     icon: charIcon5,
-    tokenName: '$CJMLC',
+    tokenName: 'Milcy',
   },
   {
     title: 'Sam',
@@ -171,6 +171,6 @@ export const CharactersData = [
     charVideo: charVideo6,
     charMobileImg: charMobileImg6,
     icon: charIcon6,
-    tokenName: '$CJSAM',
+    tokenName: 'Sam',
   },
 ];
