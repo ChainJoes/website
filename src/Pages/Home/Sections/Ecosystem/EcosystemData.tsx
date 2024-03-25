@@ -8,24 +8,23 @@ export const EcosystemData = [
     mark: '',
   },
   {
-    title: 'Each Chain Joe has it’s own MEME token:',
+    title: 'EACH CHAIN JOE HAS ITS OWN COMIC BOOK STORY NFT',
     list: [
       'Get yours and join our upcoming gaming ecosystem!',
-      'Gear up for the adventure in Chainverse!'
+      'Each comic book grants incredible benefits and perks!'
     ],
     mark: '',
   },
   {
-    title: 'Owned by the community! No locks! No vesting!',
+    title: 'COMPLETE ENTERTAINMENT HUB OF WEB3',
     list: [
-      '90% of the supply owned by the community',
-      'Only 10% owned by the team (marketing and brand funding)',
-      'No VCs owned tokens!'
+      'Incredible MEME Heroes and their adventures!',
+      'Experience exciting comic books, video content, mobile gaming, toys and more!'
     ],
     mark: mark,
   },
   {
-    title: 'Future airdrop of main CJ token to all CJ MEME tokens holders!',
+    title: 'FUTURE AIRDROPS FOR CJ TOKEN & NFT HOLDERS! HODL & EARN!',
     list: [],
     mark: '',
   },

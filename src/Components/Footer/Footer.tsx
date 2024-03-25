@@ -3,7 +3,7 @@ import './Footer.scss'
 import { Cta } from "./Cta/Cta";
 import { Logo } from "../Logo/Logo";
 import { Socials } from "../Socials/Socials";
-import { m5Logo } from "../Icons/Icons";
+import {m5Logo, payAcceptLogo} from "../Icons/Icons";
 
 export const Footer = () => {
   return (
@@ -48,7 +48,10 @@ export const Footer = () => {
             </ul>
           </div>
           <div className="right">
-            {m5Logo}
+            <div className="">
+              <div className="logo logo-m5"><a href="https://www.mach5.ag" target="_blank">{m5Logo}</a></div>
+              <div className="logo logo-payAccept"><a href="https://www.payaccept.net" target="_blank">{payAcceptLogo}</a></div>
+            </div>
           </div>
         </div>
       </footer>
